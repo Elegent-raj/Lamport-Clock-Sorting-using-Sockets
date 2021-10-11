@@ -11,7 +11,7 @@ public class Main {
     public static void main(String[] args) {
 
         if (args.length == 0) {
-            System.out.println("Please enter correct format to use the program: java Main (number of processses)");
+            System.out.println("Please enter correct format to run: java Main <number of processses>");
             return;
         }
 
@@ -78,19 +78,6 @@ public class Main {
                         e = new Event(0, firstProcessId, secondProcessId, messageContent);
                         clocks[clockArrayId].updateTime(e);
                         break;
-
-                        case "REQUEST":
-                        clockArrayId = Integer.parseInt(splits[1]);
-                        firstProcessId = clocks[clockArrayId].getId();
-
-                        e = new Event(3, firstProcessId, -1, "");
-                        clocks[clockArrayId].updateTime(e);
-                        break;
-
-                    /*case "LEAVE":
-                        clockArrayId = Integer.parseInt(splits[1]);
-                        firstProcessId = clocks[clockArrayId].getId();
-                    */
 
                     default:
                         throw new RuntimeException("Invalid event name");
