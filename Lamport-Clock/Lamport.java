@@ -1,15 +1,21 @@
+// Simple Lamport Implementation
+// Rohit Raj
 import java.io.*;
 import java.net.*;
+
+// using runnable interface as demonstrated in MultiThreading demo in class
 class Clock implements Runnable
-{
+{	
+	// initialize thread and clk
 	Thread t;
 	int clk;
 	int inc;
 
+	// defining clock class
 	public Clock(int c,int i)
 	{
 		clk=c; inc=i;
-		t=new Thread(this,"Clock");
+		t=new Thread(this,"Clock");  
 		t.start();
 
 	}
@@ -37,6 +43,7 @@ class Clock implements Runnable
 	}
 
 }
+// server class
 class LServer implements Runnable
 {
 	Thread t;
@@ -72,7 +79,7 @@ class LServer implements Runnable
 					clk=Integer.parseInt(msg);
 					System.out.println("Client Clock >> " + clk);
 					System.out.println("Server Clock >> " + c.getClk());
-					if(c.getClk()<clk)
+					if(c.getClk()<clk)  // 
 					{
 						System.out.println("Lamports in picture...");
 						c.setClk(clk+1);
@@ -90,6 +97,7 @@ class LServer implements Runnable
 	}
 }
 
+// Client class
 class LClient implements Runnable
 {
 	Thread t;
