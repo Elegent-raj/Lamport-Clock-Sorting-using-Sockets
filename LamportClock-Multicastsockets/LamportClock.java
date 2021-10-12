@@ -8,7 +8,6 @@ public class LamportClock extends Thread {
     private MulticastSocket sock;
     private InetAddress group;
     private int port;
-    //private PriorityQueue<Request> clockPQ;
 
     // local time of a process
     private int time;
@@ -48,13 +47,13 @@ public class LamportClock extends Thread {
 
     public int localEvent() {
         ++this.time;
-        // System.out.println(this.getId() + " performing local event. local time is " + this.time);
+        System.out.println(this.getId() + " performing local event. local time is " + this.time);
         return this.time;
     }
 
     public int receivedEvent(long senderId, int receivedTime) {
-        // System.out.println(this.getId() + " received message from "
-        //     + senderId + ". local time is " + this.time);
+        System.out.println(this.getId() + " received message from "
+           + senderId + ". local time is " + this.time);
 
         return this.time;
     }
@@ -98,6 +97,16 @@ public class LamportClock extends Thread {
                 // update its logical clock
                 this.time = Math.max(e.localTime, this.time) + 1;
                 break;
+
+            /*
+            // LEAVE EVENT
+            case 3:
+                // leave group
+                sock.leaveGroup(group);
+                System.out.println("Process Id " + this.getId() + "left");
+                break;
+            */
+
         }
         
 
@@ -105,7 +114,7 @@ public class LamportClock extends Thread {
     }
 
     public void printTime(Event e) {
-        String logging = "-------------------------\n";
+        String logging = "********************************************\n";
         logging += "Process " + this.getId() + "\n";
         logging += "Process' local time " + this.getTime() + "\n";
         logging += "\tEvent type: ";
@@ -128,7 +137,7 @@ public class LamportClock extends Thread {
         logging += "\tEvent receiver's ID: " + e.receiverId + "\n";
         logging += "\tEvent local time: " + e.localTime + "\n";
         logging += "\tEvent content: " + e.content + "\n";
-        logging += "-------------------------\n";
+        logging += "********************************************\n";
 
         System.out.print(logging);
     }
@@ -146,7 +155,7 @@ public class LamportClock extends Thread {
                 DatagramPacket d = new DatagramPacket(new byte[256], 256);
                 sock.receive(d);
                 String s = new String(d.getData());
-                // System.out.println(this.getId() + " received " + s);
+                //System.out.println(this.getId() + " received " + s);
 
                 String[] meta = s.trim().split("-");
                 long senderId = Long.parseLong(meta[0]);

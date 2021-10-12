@@ -79,6 +79,16 @@ public class Main {
                         clocks[clockArrayId].updateTime(e);
                         break;
 
+                    /*
+                    case "LEAVE":
+                        clockArrayId = Integer.parseInt(splits[1]);
+                        firstProcessId = clocks[clockArrayId].getId();
+                        secondProcessId = 0;
+                        messageContent = "";
+                        e = new Event(2, firstProcessId, secondProcessId, messageContent);
+                        break;
+                    */
+
                     default:
                         throw new RuntimeException("Invalid event name");
 
